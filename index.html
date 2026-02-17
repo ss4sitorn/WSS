@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Website Security Assessment</title>
+
+  <style>
+    :root {
+      --bg: #0b0f17;
+      --card: #121a2a;
+      --text: #e7edf7;
+      --muted: #a9b4c7;
+      --accent: #6aa6ff;
+      --danger: #ff6a6a;
+      --ok: #6aff9c;
+      --border: rgba(255,255,255,.10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 20% 0%, rgba(106,166,255,.18), transparent 50%),
+                  radial-gradient(900px 600px at 80% 10%, rgba(106,255,156,.12), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      padding: 28px;
+    }
+    .wrap { max-width: 980px; margin: 0 auto; }
+
+    header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    h1 { font-size: 28px; margin: 0; letter-spacing: .2px; }
+    .sub { color: var(--muted); font-size: 14px; margin-top: 8px; }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .leftRow { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(0,0,0,.12);
+    }
+
+    .progressbar {
+      height: 10px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 8px;
+    }
+    .progressbar > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(106,166,255,.85), rgba(106,255,156,.75));
+    }
+
+    .qtitle {
+      font-size: 18px;
+      margin: 16px 0 10px 0;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .choices { display: grid; gap: 10px; margin: 10px 0 0 0; }
+    label.choice {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      background: rgba(0,0,0,.18);
+    }
+    label.choice:hover { border-color: rgba(106,166,255,.55); }
+    input[type="radio"] { margin-top: 3px; accent-color: var(--accent); }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: center;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: .2px;
+      min-width: 90px;
+    }
+    button:hover { border-color: rgba(106,166,255,.55); }
+    button.primary {
+      background: linear-gradient(180deg, rgba(106,166,255,.28), rgba(106,166,255,.12));
+      border-color: rgba(106,166,255,.45);
+    }
+    button.danger {
+      background: linear-gradient(180deg, rgba(255,106,106,.22), rgba(255,106,106,.10));
+      border-color: rgba(255,106,106,.40);
+    }
+    button:disabled { opacity: .55; cursor: not-allowed; }
+
+    .muted { color: var(--muted); font-size: 13px; }
+    .hidden { display: none !important; }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 8px;
+    }
+    .score { font-size: 44px; margin: 0; line-height: 1; }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 10px;
+      background: rgba(0,0,0,.10);
+    }
+    .badge.ok { border-color: rgba(106,255,156,.35); }
+    .badge.warn { border-color: rgba(255,215,106,.35); }
+    .badge.bad { border-color: rgba(255,106,106,.35); }
+
+    ul { margin: 10px 0 0 18px; }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .table th, .table td {
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    .table th { color: var(--muted); font-weight: 700; background: rgba(0,0,0,.12); }
+    .table tr:last-child td { border-bottom: none; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1 id="assessTitle">Assessment</h1>
+        <div class="sub" id="assessDesc"></div>
+      </div>
+      <div class="pill" id="modePill">Mode: Part 1–11 (One-by-one)</div>
+    </header>
+
+    <!-- QUIZ -->
+    <section class="card" id="quizCard">
+      <div class="row">
+        <div class="leftRow">
+          <div class="pill" id="partCounter">Part 1 / 11</div>
+          <div class="pill" id="partTitle">Part title</div>
+          <div class="pill" id="qCounter">Question 1 / 1</div>
+        </div>
+        <div class="pill" id="reqPill">All questions required</div>
+      </div>
+
+      <div class="progressbar" aria-label="progress">
+        <div id="progressFill"></div>
+      </div>
+
+      <h2 class="qtitle" id="qText"></h2>
+      <div class="choices" id="choices"></div>
+
+      <div class="nav">
+        <button id="btnPrev">Back</button>
+        <div style="display:flex; gap:10px;">
+          <button class="danger" id="btnReset">Reset</button>
+          <button class="primary" id="btnNext">Next</button>
+        </div>
+      </div>
+
+      <div class="muted" id="helperText" style="margin-top:10px;"></div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="card hidden" id="resultCard">
+      <div class="row">
+        <div class="pill" id="resultStamp">Result</div>
+        <button id="btnAgain" class="primary">Take again</button>
+      </div>
+
+      <div class="result-grid">
+        <div>
+          <div class="muted">Total score</div>
+          <p class="score" id="scoreText">0%</p>
+          <div class="badge" id="levelBadge">Level</div>
+        </div>
+
+        <div>
+          <div class="muted">Recommendations</div>
+          <div id="recommendations"></div>
+        </div>
+
+        <div>
+          <div class="muted">Part breakdown</div>
+          <table class="table" id="partTable">
+            <thead>
+              <tr>
+                <th style="width: 32%;">Part</th>
+                <th style="width: 18%;">Score</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="muted" id="breakdown" style="margin-top:10px;"></div>
+    </section>
+  </div>
+
+  <!-- Load config FIRST -->
+  <script src="./assessment-config.js"></script>
+
+  <script>
+    const ASSESSMENT = window.ASSESSMENT;
+    if (!ASSESSMENT) {
+      alert("Missing assessment-config.js or window.ASSESSMENT not defined.");
+      throw new Error("Missing ASSESSMENT config.");
+    }
+
+    const els = {
+      title: document.getElementById("assessTitle"),
+      desc: document.getElementById("assessDesc"),
+      modePill: document.getElementById("modePill"),
+      partCounter: document.getElementById("partCounter"),
+      partTitle: document.getElementById("partTitle"),
+      qCounter: document.getElementById("qCounter"),
+      reqPill: document.getElementById("reqPill"),
+      progressFill: document.getElementById("progressFill"),
+      qText: document.getElementById("qText"),
+      choices: document.getElementById("choices"),
+      btnPrev: document.getElementById("btnPrev"),
+      btnNext: document.getElementById("btnNext"),
+      btnReset: document.getElementById("btnReset"),
+      helperText: document.getElementById("helperText"),
+      quizCard: document.getElementById("quizCard"),
+      resultCard: document.getElementById("resultCard"),
+      scoreText: document.getElementById("scoreText"),
+      levelBadge: document.getElementById("levelBadge"),
+      recommendations: document.getElementById("recommendations"),
+      partTableBody: document.querySelector("#partTable tbody"),
+      breakdown: document.getElementById("breakdown"),
+      btnAgain: document.getElementById("btnAgain"),
+      resultStamp: document.getElementById("resultStamp")
+    };
+
+    const STORAGE_KEY = "wss_assessment_parts_v1";
+
+    const parts = ASSESSMENT.parts || [];
+    if (!parts.length) throw new Error("ASSESSMENT.parts is empty.");
+
+    const flatQuestions = parts.flatMap(p => (p.questions || []).map(q => ({ ...q, _partId: p.id })));
+
+    const state = {
+      partIdx: 0,
+      qIdx: 0,
+      answers: loadAnswers()
+    };
+
+    init();
+
+    function init() {
+      els.title.textContent = ASSESSMENT.title ?? "Assessment";
+      els.desc.textContent = ASSESSMENT.description ?? "";
+      els.modePill.textContent = "Mode: Part 1–11 (One-by-one)";
+      els.reqPill.textContent = ASSESSMENT.requireAllAnswers ? "All questions required" : "Answers optional";
+
+      els.btnPrev.addEventListener("click", onPrev);
+      els.btnNext.addEventListener("click", onNextOrSubmit);
+      els.btnReset.addEventListener("click", onReset);
+      els.btnAgain.addEventListener("click", onAgain);
+
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function currentPart() {
+      return parts[state.partIdx];
+    }
+
+    function currentQuestion() {
+      const p = currentPart();
+      return (p.questions || [])[state.qIdx];
+    }
+
+    function renderCurrent() {
+      const p = currentPart();
+      const q = currentQuestion();
+
+      // Safety checks (avoid blank UI if config has gaps)
+      if (!p || !q) {
+        els.helperText.textContent = "Config error: missing part/question. Check assessment-config.js";
+        throw new Error("Missing part/question in config.");
+      }
+
+      els.partCounter.textContent = `Part ${state.partIdx + 1} / ${parts.length}`;
+      els.partTitle.textContent = `${p.title}${p.description ? " • " + p.description : ""}`;
+      els.qCounter.textContent = `Question ${state.qIdx + 1} / ${(p.questions || []).length}`;
+
+      els.qText.textContent = q.text;
+
+      els.choices.innerHTML = "";
+      (q.choices || []).forEach((c, i) => {
+        const id = `${q.id}_${i}`;
+
+        const label = document.createElement("label");
+        label.className = "choice";
+        label.setAttribute("for", id);
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = q.id;
+        input.id = id;
+        input.value = String(i);
+        input.checked = state.answers[q.id] === i;
+
+        input.addEventListener("change", () => {
+          state.answers[q.id] = i;
+          saveAnswers(state.answers);
+          els.helperText.textContent = "";
+          updateProgress();
+          updateNav();
+        });
+
+        const span = document.createElement("span");
+        span.textContent = c.label;
+
+        label.appendChild(input);
+        label.appendChild(span);
+        els.choices.appendChild(label);
+      });
+
+      els.helperText.textContent = "เลือกตัวเลือกเพื่อดำเนินการต่อ";
+    }
+
+    function updateNav() {
+      const atStart = state.partIdx === 0 && state.qIdx === 0;
+      els.btnPrev.disabled = atStart;
+
+      const p = currentPart();
+      const isLastQuestionInPart = state.qIdx === (p.questions.length - 1);
+      const isLastPart = state.partIdx === (parts.length - 1);
+
+      els.btnNext.textContent = (isLastQuestionInPart && isLastPart) ? "Submit" : "Next";
+    }
+
+    function updateProgress() {
+      const total = flatQuestions.length;
+      const answered = flatQuestions.reduce((acc, q) => acc + (Number.isInteger(state.answers[q.id]) ? 1 : 0), 0);
+      const pct = total ? Math.round((answered / total) * 100) : 0;
+      els.progressFill.style.width = pct + "%";
+    }
+
+    function onPrev() {
+      if (state.qIdx > 0) {
+        state.qIdx -= 1;
+      } else if (state.partIdx > 0) {
+        state.partIdx -= 1;
+        state.qIdx = parts[state.partIdx].questions.length - 1;
+      }
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function onNextOrSubmit() {
+      const q = currentQuestion();
+      const hasAnswer = Number.isInteger(state.answers[q.id]);
+
+      if (ASSESSMENT.requireAllAnswers && !hasAnswer) {
+        els.helperText.textContent = "กรุณาเลือกคำตอบก่อนดำเนินการต่อ";
+        return;
+      }
+
+      const p = currentPart();
+      const isLastQuestionInPart = state.qIdx === (p.questions.length - 1);
+      const isLastPart = state.partIdx === (parts.length - 1);
+
+      if (isLastQuestionInPart && isLastPart) {
+        if (ASSESSMENT.requireAllAnswers) {
+          const missing = flatQuestions.filter(qq => !Number.isInteger(state.answers[qq.id]));
+          if (missing.length) {
+            els.helperText.textContent = "กรุณาตอบให้ครบทุกข้อก่อนส่งผลการประเมิน";
+            return;
+          }
+        }
+        showResults();
+        return;
+      }
+
+      if (!isLastQuestionInPart) {
+        state.qIdx += 1;
+      } else {
+        state.partIdx += 1;
+        state.qIdx = 0;
+      }
+
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function calcScoreForQuestions(questions) {
+      const maxPoints = questions.reduce((acc, q) => {
+        const max = Math.max(...(q.choices || []).map(c => c.points));
+        return acc + (Number.isFinite(max) ? max : 0);
+      }, 0);
+
+      const earned = questions.reduce((acc, q) => {
+        const idx = state.answers[q.id];
+        if (!Number.isInteger(idx)) return acc;
+        const pts = (q.choices && q.choices[idx]) ? (q.choices[idx].points ?? 0) : 0;
+        return acc + pts;
+      }, 0);
+
+      const pct = maxPoints === 0 ? 0 : Math.round((earned / maxPoints) * 100);
+      return { earned, maxPoints, pct };
+    }
+
+    function bandFor(pct) {
+      return (ASSESSMENT.recommendations || []).find(b => pct >= b.min && pct <= b.max)
+        || { label: "Uncategorized", badgeClass: "", items: ["No recommendation band matched this score."] };
+    }
+
+    function showResults() {
+      const totalScore = calcScoreForQuestions(flatQuestions);
+      const band = bandFor(totalScore.pct);
+
+      els.scoreText.textContent = totalScore.pct + "%";
+      els.levelBadge.textContent = `ระดับ: ${band.label}`;
+      els.levelBadge.className = `badge ${band.badgeClass || ""}`;
+
+      // Recommendations
+      els.recommendations.innerHTML = "";
+      const ul = document.createElement("ul");
+      (band.items || []).forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+      els.recommendations.appendChild(ul);
+
+      // Part breakdown
+      els.partTableBody.innerHTML = "";
+      parts.forEach((p, i) => {
+        const partQs = p.questions || [];
+        const s = calcScoreForQuestions(partQs);
+
+        const tr = document.createElement("tr");
+
+        const tdPart = document.createElement("td");
+        tdPart.textContent = `Part ${i + 1}: ${p.title}${p.description ? " (" + p.description + ")" : ""}`;
+
+        const tdScore = document.createElement("td");
+        tdScore.textContent = `${s.pct}% (${s.earned}/${s.maxPoints})`;
+
+        const tdNote = document.createElement("td");
+        if (s.pct < 50) tdNote.textContent = "ควรเร่งปรับปรุง (คะแนนต่ำ)";
+        else if (s.pct < 75) tdNote.textContent = "ควรปรับปรุงต่อเนื่อง";
+        else tdNote.textContent = "อยู่ในเกณฑ์ดี";
+
+        tr.appendChild(tdPart);
+        tr.appendChild(tdScore);
+        tr.appendChild(tdNote);
+        els.partTableBody.appendChild(tr);
+      });
+
+      els.resultStamp.textContent = "Result • " + new Date().toLocaleString();
+      els.breakdown.textContent =
+        `รวมคะแนน: ${totalScore.earned} / ${totalScore.maxPoints} (บันทึกคำตอบในเบราว์เซอร์นี้แล้ว)`;
+
+      els.quizCard.classList.add("hidden");
+      els.resultCard.classList.remove("hidden");
+    }
+
+    function onReset() {
+      state.answers = {};
+      saveAnswers(state.answers);
+      state.partIdx = 0;
+      state.qIdx = 0;
+      renderCurrent();
+      updateProgress();
+      updateNav();
+      els.helperText.textContent = "รีเซ็ตเรียบร้อย";
+    }
+
+    function onAgain() {
+      els.resultCard.classList.add("hidden");
+      els.quizCard.classList.remove("hidden");
+      state.partIdx = 0;
+      state.qIdx = 0;
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function saveAnswers(answers) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(answers)); } catch (_) {}
+    }
+
+    function loadAnswers() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch (_) {
+        return {};
+      }
+    }
+  </script>
+</body>
+</html>
