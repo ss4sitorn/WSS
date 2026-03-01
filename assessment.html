@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WSS Self-Assessment — แบบประเมินตนเอง</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&family=Chakra+Petch:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --card: #0d1630;
+      --text: #e7edf7;
+      --muted: #607090;
+      --accent: #00cfff;
+      --blue: #1a6bff;
+      --danger: #ff6a6a;
+      --ok: #6aff9c;
+      --border: rgba(255,255,255,.10);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Sarabun', ui-sans-serif, system-ui, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 20% 0%, rgba(0,207,255,.10), transparent 50%),
+        radial-gradient(900px 600px at 80% 10%, rgba(26,107,255,.10), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(10,15,30,.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(0,207,255,.1);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 2.5rem;
+      gap: 1rem;
+    }
+    .topbar-left { display: flex; align-items: center; gap: .75rem; }
+    .logo-badge {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--blue), var(--accent));
+      border-radius: 8px;
+      display: grid; place-items: center;
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: .75rem; font-weight: 700; color: #fff;
+      box-shadow: 0 0 14px rgba(0,207,255,.35);
+      flex-shrink: 0;
+    }
+    .topbar-title {
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 700; font-size: 1rem; letter-spacing: .08em;
+      color: var(--text);
+    }
+    .topbar-title span { color: var(--accent); }
+    .btn-back {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: transparent;
+      border: 1px solid rgba(0,207,255,.25);
+      color: var(--muted);
+      padding: .45rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Sarabun', sans-serif;
+      font-size: .82rem;
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-back:hover { border-color: var(--accent); color: var(--text); }
+
+    /* ── WRAP ── */
+    .wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    /* ── CARD ── */
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,.3);
+    }
+
+    /* ── HEADER ROW ── */
+    .row {
+      display: flex; gap: 10px; flex-wrap: wrap;
+      align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .leftRow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .pill {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 5px 10px;
+      color: var(--muted);
+      font-size: 11px;
+      background: rgba(0,0,0,.18);
+      font-family: 'Chakra Petch', sans-serif;
+      letter-spacing: .05em;
+    }
+    .pill.active {
+      border-color: rgba(0,207,255,.4);
+      color: var(--accent);
+      background: rgba(0,207,255,.06);
+    }
+
+    /* ── PROGRESS ── */
+    .progressbar {
+      height: 6px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .progressbar > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--accent));
+      transition: width .4s ease;
+      border-radius: 999px;
+    }
+
+    /* ── QUESTION ── */
+    .qtitle {
+      font-family: 'Sarabun', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin: 1.5rem 0 1rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    /* ── CHOICES ── */
+    .choices { display: grid; gap: 10px; margin-top: 4px; }
+    label.choice {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 14px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      background: rgba(0,0,0,.15);
+      transition: border-color .2s, background .2s;
+      font-size: .95rem;
+      line-height: 1.55;
+    }
+    label.choice:hover { border-color: rgba(0,207,255,.4); background: rgba(0,207,255,.04); }
+    label.choice.selected { border-color: rgba(0,207,255,.6); background: rgba(0,207,255,.07); }
+    input[type="radio"] { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+
+    /* ── NAV BUTTONS ── */
+    .nav {
+      display: flex; justify-content: space-between;
+      gap: 10px; margin-top: 1.5rem; align-items: center;
+    }
+    button {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-family: 'Sarabun', sans-serif;
+      font-size: .9rem;
+      letter-spacing: .2px;
+      min-width: 90px;
+      transition: border-color .2s, background .2s;
+    }
+    button:hover { border-color: rgba(0,207,255,.4); }
+    button.primary {
+      background: linear-gradient(135deg, rgba(26,107,255,.4), rgba(0,207,255,.25));
+      border-color: rgba(0,207,255,.5);
+    }
+    button.primary:hover { background: linear-gradient(135deg, rgba(26,107,255,.55), rgba(0,207,255,.38)); }
+    button.danger {
+      background: rgba(255,106,106,.12);
+      border-color: rgba(255,106,106,.35);
+      color: #ff9090;
+    }
+    button.danger:hover { background: rgba(255,106,106,.2); }
+    button:disabled { opacity: .45; cursor: not-allowed; }
+
+    .helper { color: var(--muted); font-size: .82rem; margin-top: .75rem; min-height: 1.2em; }
+    .helper.error { color: #ff9090; }
+    .hidden { display: none !important; }
+
+    /* ── RESULTS ── */
+    .result-header { text-align: center; padding: 1rem 0 2rem; }
+    .score-ring {
+      width: 130px; height: 130px; border-radius: 50%;
+      border: 3px solid rgba(0,207,255,.25);
+      background: rgba(0,207,255,.05);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      margin: 1.5rem auto;
+      box-shadow: 0 0 40px rgba(0,207,255,.15);
+    }
+    .score-num { font-family: 'Chakra Petch', sans-serif; font-size: 2.8rem; font-weight: 700; line-height: 1; color: var(--accent); }
+    .score-sub { font-size: .7rem; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: .2rem; }
+
+    .level-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: .5rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      font-size: .85rem; color: var(--muted);
+      margin-top: .5rem;
+      background: rgba(0,0,0,.15);
+    }
+    .level-badge.ok { border-color: rgba(106,255,156,.4); color: #6aff9c; }
+    .level-badge.warn { border-color: rgba(255,215,106,.4); color: #ffd76a; }
+    .level-badge.bad { border-color: rgba(255,106,106,.4); color: #ff9090; }
+
+    .result-section { margin-top: 2rem; }
+    .result-label { font-family: 'Chakra Petch', sans-serif; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: .75rem; }
+
+    .rec-list { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+    .rec-list li {
+      display: flex; gap: .6rem; align-items: flex-start;
+      font-size: .92rem; line-height: 1.6; color: var(--text);
+    }
+    .rec-list li::before { content: '›'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    .table {
+      width: 100%; border-collapse: collapse;
+      margin-top: .5rem; border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .table th, .table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--border);
+      text-align: left; vertical-align: top; font-size: .85rem;
+    }
+    .table th { color: var(--muted); font-weight: 700; background: rgba(0,0,0,.15); font-family: 'Chakra Petch', sans-serif; font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+    .table tr:last-child td { border-bottom: none; }
+    .score-cell { font-family: 'Chakra Petch', sans-serif; font-weight: 700; }
+    .score-cell.hi { color: #6aff9c; }
+    .score-cell.mid { color: #ffd76a; }
+    .score-cell.lo { color: #ff9090; }
+    .note-ok { color: #6aff9c; font-size: .82rem; }
+    .note-mid { color: #ffd76a; font-size: .82rem; }
+    .note-bad { color: #ff9090; font-size: .82rem; }
+
+    .result-footer { margin-top: 1.5rem; color: var(--muted); font-size: .8rem; text-align: center; }
+    .result-actions { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo-badge">WSS</div>
+      <div class="topbar-title">WSS <span>Assessment</span></div>
+    </div>
+    <a href="index.html" class="btn-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      กลับหน้าหลัก
+    </a>
+  </div>
+
+  <div class="wrap">
+
+    <!-- QUIZ CARD -->
+    <section class="card" id="quizCard">
+      <div class="row">
+        <div class="leftRow">
+          <div class="pill active" id="partCounter">Part 1 / 11</div>
+          <div class="pill" id="partTitle">Part title</div>
+          <div class="pill" id="qCounter">Question 1 / 1</div>
+        </div>
+        <div class="pill" id="reqPill">ตอบทุกข้อ</div>
+      </div>
+
+      <div class="progressbar" aria-label="progress">
+        <div id="progressFill"></div>
+      </div>
+
+      <h2 class="qtitle" id="qText"></h2>
+      <div class="choices" id="choices"></div>
+
+      <div class="nav">
+        <button id="btnPrev">← ย้อนกลับ</button>
+        <div style="display:flex; gap:10px;">
+          <button class="danger" id="btnReset">รีเซ็ต</button>
+          <button class="primary" id="btnNext">ถัดไป →</button>
+        </div>
+      </div>
+
+      <div class="helper" id="helperText"></div>
+    </section>
+
+    <!-- RESULTS CARD -->
+    <section class="card hidden" id="resultCard">
+
+      <div class="result-header">
+        <div class="result-label">ผลการประเมิน WSS Self-Assessment</div>
+        <div class="score-ring">
+          <div class="score-num" id="scoreText">0%</div>
+          <div class="score-sub">คะแนนรวม</div>
+        </div>
+        <div class="level-badge" id="levelBadge">ระดับ</div>
+      </div>
+
+      <div class="result-section">
+        <div class="result-label">ข้อเสนอแนะ</div>
+        <ul class="rec-list" id="recommendations"></ul>
+      </div>
+
+      <div class="result-section">
+        <div class="result-label">คะแนนแต่ละ Part</div>
+        <table class="table" id="partTable">
+          <thead>
+            <tr>
+              <th style="width:38%">Part</th>
+              <th style="width:18%">คะแนน</th>
+              <th>หมายเหตุ</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="result-footer" id="breakdown"></div>
+
+      <div class="result-actions">
+        <a href="index.html" class="btn-back" style="padding:.65rem 1.4rem; font-size:.9rem;">← กลับหน้าหลัก</a>
+        <button id="btnAgain" class="primary" style="padding:.65rem 1.4rem;">ทำแบบประเมินใหม่</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Config FIRST -->
+  <script src="./assessment-config.js"></script>
+
+  <script>
+    const ASSESSMENT = window.ASSESSMENT;
+    if (!ASSESSMENT) {
+      alert("Missing assessment-config.js");
+      throw new Error("Missing ASSESSMENT config.");
+    }
+
+    const els = {
+      partCounter: document.getElementById("partCounter"),
+      partTitle:   document.getElementById("partTitle"),
+      qCounter:    document.getElementById("qCounter"),
+      reqPill:     document.getElementById("reqPill"),
+      progressFill:document.getElementById("progressFill"),
+      qText:       document.getElementById("qText"),
+      choices:     document.getElementById("choices"),
+      btnPrev:     document.getElementById("btnPrev"),
+      btnNext:     document.getElementById("btnNext"),
+      btnReset:    document.getElementById("btnReset"),
+      helperText:  document.getElementById("helperText"),
+      quizCard:    document.getElementById("quizCard"),
+      resultCard:  document.getElementById("resultCard"),
+      scoreText:   document.getElementById("scoreText"),
+      levelBadge:  document.getElementById("levelBadge"),
+      recommendations: document.getElementById("recommendations"),
+      partTableBody:   document.querySelector("#partTable tbody"),
+      breakdown:   document.getElementById("breakdown"),
+      btnAgain:    document.getElementById("btnAgain"),
+    };
+
+    const STORAGE_KEY = "wss_assessment_v2";
+    const parts = ASSESSMENT.parts || [];
+    if (!parts.length) throw new Error("ASSESSMENT.parts is empty.");
+
+    const flatQuestions = parts.flatMap(p =>
+      (p.questions || []).map(q => ({ ...q, _partId: p.id }))
+    );
+
+    const state = { partIdx: 0, qIdx: 0, answers: loadAnswers() };
+
+    init();
+
+    function init() {
+      els.reqPill.textContent = ASSESSMENT.requireAllAnswers ? "ตอบทุกข้อ" : "ตอบได้ตามต้องการ";
+      els.btnPrev.addEventListener("click", onPrev);
+      els.btnNext.addEventListener("click", onNextOrSubmit);
+      els.btnReset.addEventListener("click", onReset);
+      els.btnAgain.addEventListener("click", onAgain);
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function currentPart() { return parts[state.partIdx]; }
+    function currentQuestion() { return (currentPart().questions || [])[state.qIdx]; }
+
+    function renderCurrent() {
+      const p = currentPart();
+      const q = currentQuestion();
+      if (!p || !q) return;
+
+      els.partCounter.textContent = `Part ${state.partIdx + 1} / ${parts.length}`;
+      els.partTitle.textContent = `${p.title}${p.description ? " · " + p.description : ""}`;
+      els.qCounter.textContent = `ข้อ ${state.qIdx + 1} / ${(p.questions || []).length}`;
+      els.qText.textContent = q.text;
+      els.helperText.textContent = "";
+      els.helperText.className = "helper";
+
+      els.choices.innerHTML = "";
+      (q.choices || []).forEach((c, i) => {
+        const id = `${q.id}_${i}`;
+        const label = document.createElement("label");
+        label.className = "choice" + (state.answers[q.id] === i ? " selected" : "");
+        label.setAttribute("for", id);
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = q.id;
+        input.id = id;
+        input.value = String(i);
+        input.checked = state.answers[q.id] === i;
+
+        input.addEventListener("change", () => {
+          state.answers[q.id] = i;
+          saveAnswers(state.answers);
+          // Update selected style
+          document.querySelectorAll(`[name="${q.id}"]`).forEach((r, ri) => {
+            r.closest("label").classList.toggle("selected", ri === i);
+          });
+          els.helperText.textContent = "";
+          updateProgress();
+          updateNav();
+        });
+
+        const span = document.createElement("span");
+        span.textContent = c.label;
+        label.appendChild(input);
+        label.appendChild(span);
+        els.choices.appendChild(label);
+      });
+    }
+
+    function updateNav() {
+      els.btnPrev.disabled = (state.partIdx === 0 && state.qIdx === 0);
+      const p = currentPart();
+      const isLastQ    = state.qIdx === (p.questions.length - 1);
+      const isLastPart = state.partIdx === (parts.length - 1);
+      els.btnNext.textContent = (isLastQ && isLastPart) ? "ส่งผลการประเมิน ✓" : "ถัดไป →";
+    }
+
+    function updateProgress() {
+      const total    = flatQuestions.length;
+      const answered = flatQuestions.filter(q => Number.isInteger(state.answers[q.id])).length;
+      const pct = total ? Math.round((answered / total) * 100) : 0;
+      els.progressFill.style.width = pct + "%";
+    }
+
+    function onPrev() {
+      if (state.qIdx > 0) {
+        state.qIdx--;
+      } else if (state.partIdx > 0) {
+        state.partIdx--;
+        state.qIdx = parts[state.partIdx].questions.length - 1;
+      }
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function onNextOrSubmit() {
+      const q = currentQuestion();
+      const hasAnswer = Number.isInteger(state.answers[q.id]);
+
+      if (ASSESSMENT.requireAllAnswers && !hasAnswer) {
+        els.helperText.textContent = "กรุณาเลือกคำตอบก่อนดำเนินการต่อ";
+        els.helperText.className = "helper error";
+        return;
+      }
+
+      const p = currentPart();
+      const isLastQ    = state.qIdx === (p.questions.length - 1);
+      const isLastPart = state.partIdx === (parts.length - 1);
+
+      if (isLastQ && isLastPart) {
+        if (ASSESSMENT.requireAllAnswers) {
+          const missing = flatQuestions.filter(q => !Number.isInteger(state.answers[q.id]));
+          if (missing.length) {
+            els.helperText.textContent = `กรุณาตอบให้ครบทุกข้อ (ยังขาดอีก ${missing.length} ข้อ)`;
+            els.helperText.className = "helper error";
+            return;
+          }
+        }
+        showResults();
+        return;
+      }
+
+      if (!isLastQ) {
+        state.qIdx++;
+      } else {
+        state.partIdx++;
+        state.qIdx = 0;
+      }
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function calcScore(questions) {
+      const maxPoints = questions.reduce((acc, q) => {
+        const max = Math.max(...(q.choices || []).map(c => c.points ?? 0));
+        return acc + (Number.isFinite(max) ? max : 0);
+      }, 0);
+      const earned = questions.reduce((acc, q) => {
+        const idx = state.answers[q.id];
+        if (!Number.isInteger(idx)) return acc;
+        return acc + ((q.choices[idx]?.points) ?? 0);
+      }, 0);
+      const pct = maxPoints === 0 ? 0 : Math.round((earned / maxPoints) * 100);
+      return { earned, maxPoints, pct };
+    }
+
+    function bandFor(pct) {
+      return (ASSESSMENT.recommendations || []).find(b => pct >= b.min && pct <= b.max)
+        || { label: "ไม่ระบุ", badgeClass: "", items: [] };
+    }
+
+    function showResults() {
+      const total = calcScore(flatQuestions);
+      const band  = bandFor(total.pct);
+
+      els.scoreText.textContent = total.pct + "%";
+      els.levelBadge.textContent = `ระดับ: ${band.label}`;
+      els.levelBadge.className   = `level-badge ${band.badgeClass || ""}`;
+
+      // Recommendations
+      els.recommendations.innerHTML = "";
+      (band.items || []).forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        els.recommendations.appendChild(li);
+      });
+
+      // Part breakdown table
+      els.partTableBody.innerHTML = "";
+      parts.forEach((p, i) => {
+        const s  = calcScore(p.questions || []);
+        const tr = document.createElement("tr");
+
+        const tdPart  = document.createElement("td");
+        tdPart.textContent = `Part ${i + 1}: ${p.title}`;
+
+        const tdScore = document.createElement("td");
+        tdScore.className = `score-cell ${s.pct >= 75 ? "hi" : s.pct >= 50 ? "mid" : "lo"}`;
+        tdScore.textContent = `${s.pct}% (${s.earned}/${s.maxPoints})`;
+
+        const tdNote  = document.createElement("td");
+        if (s.pct >= 75) {
+          tdNote.className = "note-ok";
+          tdNote.textContent = "✓ อยู่ในเกณฑ์ดี";
+        } else if (s.pct >= 50) {
+          tdNote.className = "note-mid";
+          tdNote.textContent = "⚠ ควรปรับปรุงต่อเนื่อง";
+        } else {
+          tdNote.className = "note-bad";
+          tdNote.textContent = "✗ ต้องเร่งปรับปรุง";
+        }
+
+        tr.appendChild(tdPart);
+        tr.appendChild(tdScore);
+        tr.appendChild(tdNote);
+        els.partTableBody.appendChild(tr);
+      });
+
+      els.breakdown.textContent =
+        `คะแนนรวม ${total.earned} / ${total.maxPoints} คะแนน  ·  ประเมิน ณ ${new Date().toLocaleString("th-TH")}`;
+
+      els.quizCard.classList.add("hidden");
+      els.resultCard.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function onReset() {
+      if (!confirm("ต้องการรีเซ็ตคำตอบทั้งหมดหรือไม่?")) return;
+      state.answers  = {};
+      state.partIdx  = 0;
+      state.qIdx     = 0;
+      saveAnswers(state.answers);
+      renderCurrent();
+      updateProgress();
+      updateNav();
+    }
+
+    function onAgain() {
+      state.answers  = {};
+      state.partIdx  = 0;
+      state.qIdx     = 0;
+      saveAnswers(state.answers);
+      els.resultCard.classList.add("hidden");
+      els.quizCard.classList.remove("hidden");
+      renderCurrent();
+      updateProgress();
+      updateNav();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function saveAnswers(a) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(a)); } catch (_) {}
+    }
+    function loadAnswers() {
+      try { const r = localStorage.getItem(STORAGE_KEY); return r ? JSON.parse(r) : {}; }
+      catch (_) { return {}; }
+    }
+  </script>
+</body>
+</html>
