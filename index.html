@@ -88,6 +88,7 @@
     background-image: radial-gradient(circle, rgba(0,207,255,.15) 1px, transparent 1px);
     background-size: 40px 40px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 100%);
+    pointer-events: none;
   }
   /* Glow */
   .hero::after {
@@ -313,6 +314,7 @@
   .cta-section::before {
     content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26,107,255,.08) 0%, transparent 70%);
+    pointer-events: none;
   }
   .cta-section h2 { font-family: 'Chakra Petch', sans-serif; font-size: clamp(2.5rem,6vw,4.5rem); font-weight: 700; letter-spacing: .03em; line-height: 1.1; margin-bottom: 1.5rem; position: relative; }
   .cta-section h2 span { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
