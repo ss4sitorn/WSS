@@ -1,0 +1,18 @@
+{
+  "id": "p10",
+  "title": "การเผชิญเหตุและรับมือภัยคุกคามทางไซเบอร์",
+  "description": "Website Incident Response (6.4)",
+  "questions": [
+    {
+      "id": "p10q1",
+      "minImpact": "medium",
+      "text": "10.1  หน่วยงานมีการจัดทำแผนการรับมือภัยคุกคามทางไซเบอร์สำหรับเว็บไซต์ (Website Security Incident Response Plan) โดยมีการสื่อสาร ฝึกซ้อม ทบทวน และปรับปรุงแผน รวมถึงมีแผนสื่อสารในภาวะวิกฤต (Crisis Communication Plan) (หัวข้อ 6.4.1) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มีแผน IRP ที่สมบูรณ์ มีการฝึกซ้อมปีละ 1 ครั้ง และมี Crisis Communication Plan", "points": 4 },
+        { "label": "ดำเนินการบางส่วน — มีแผน IRP แต่ยังขาดการฝึกซ้อมหรือ Crisis Communication Plan", "points": 2 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังจัดทำแผน IRP", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีแผนการรับมือภัยคุกคามอย่างเป็นทางการ", "points": 0 }
+      ]
+    }
+  ]
+}

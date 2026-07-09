@@ -1,0 +1,282 @@
+/* Styles moved to navbar.module.css */
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid; place-items: center;
+  text-align: center;
+  padding: 7rem 2rem 5rem;
+  position: relative; overflow: hidden;
+}
+.heroDots {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(0, 207, 255, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 100%);
+  pointer-events: none;
+}
+.heroGlow {
+  position: absolute;
+  width: 700px; height: 700px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(26, 107, 255, 0.12) 0%, transparent 65%);
+  top: 50%; left: 50%; transform: translate(-50%, -60%);
+  pointer-events: none;
+}
+.heroContent { position: relative; z-index: 1; }
+.heroBadge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: rgba(0, 207, 255, 0.08);
+  border: 1px solid rgba(0, 207, 255, 0.3);
+  color: var(--cyan);
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.4rem 1.2rem; border-radius: 2rem;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.8s ease both;
+}
+.heroBadgeDot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--cyan); box-shadow: 0 0 8px var(--cyan);
+  animation: pulse 1.5s infinite;
+}
+.heroTitle {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: 0.02em;
+  animation: fadeUp 0.8s 0.15s ease both;
+}
+.heroTitleGradient {
+  display: block;
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--blue) 50%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.heroSub {
+  max-width: 640px; margin: 2rem auto 1rem;
+  font-size: 1.1rem; line-height: 1.8; color: var(--text);
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.heroSubTh {
+  max-width: 620px; margin: 0 auto 3rem;
+  font-size: 0.95rem; line-height: 1.7; color: var(--muted);
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+.heroBtns {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.5s ease both;
+}
+.btnPrimary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: linear-gradient(135deg, var(--blue), var(--cyan));
+  color: var(--deep); font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700; font-size: 0.95rem; letter-spacing: 0.06em;
+  text-transform: uppercase; text-decoration: none;
+  padding: 0.9rem 2.2rem; border-radius: 4px; border: none; cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 0 30px rgba(0, 207, 255, 0.3);
+}
+.btnPrimary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(0, 207, 255, 0.5); }
+.btnOutline {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: transparent;
+  border: 1px solid rgba(0, 207, 255, 0.4);
+  color: var(--cyan); font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; padding: 0.9rem 2rem; border-radius: 4px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btnOutline:hover { border-color: var(--cyan); color: var(--white); }
+
+/* ── STATS ── */
+.statsBar {
+  display: flex; justify-content: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--dark);
+  overflow-x: auto;
+}
+.stat { flex: 1; min-width: 160px; max-width: 240px; padding: 2rem 1.5rem; text-align: center; border-right: 1px solid var(--border); }
+.stat:last-child { border-right: none; }
+.statNum { font-family: 'Chakra Petch', sans-serif; font-size: 2.8rem; font-weight: 700; color: var(--cyan); line-height: 1; }
+.statLabel { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-top: 0.5rem; line-height: 1.4; }
+
+/* ── SECTION BASE ── */
+.section { padding: 7rem 2rem; max-width: 1100px; margin: 0 auto; }
+.sectionTag { font-family: 'Chakra Petch', sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cyan); margin-bottom: 1rem; }
+.sectionTitle { font-family: 'Chakra Petch', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 1.5rem; }
+.sectionText { color: var(--text); line-height: 1.9; font-size: 1.05rem; max-width: 650px; }
+
+/* ── ABOUT ── */
+.aboutGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.aboutTags { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; }
+.tag {
+  background: var(--navy); border: 1px solid var(--border);
+  color: var(--cyan); font-size: 0.78rem; letter-spacing: 0.08em;
+  padding: 0.3rem 0.9rem; border-radius: 2rem; text-transform: uppercase;
+}
+
+/* Shield visual */
+.shieldWrap { relative: true; height: 380px; display: flex; align-items: center; justify-content: center; }
+.shieldSvg { width: 220px; filter: drop-shadow(0 0 30px rgba(0, 207, 255, 0.3)); animation: float 4s ease-in-out infinite; }
+.orbit { position: absolute; border-radius: 50%; border: 1px solid rgba(0, 207, 255, 0.15); animation: spin linear infinite; }
+.orbit1 { width: 320px; height: 320px; animation-duration: 18s; }
+.orbit2 { width: 240px; height: 240px; animation-duration: 12s; animation-direction: reverse; border-color: rgba(245, 197, 24, 0.15); }
+.orbitDot {
+  position: absolute; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--cyan); top: -4px; left: 50%; margin-left: -4px;
+  box-shadow: 0 0 10px var(--cyan);
+}
+.orbitDotGold { background: var(--gold); box-shadow: 0 0 10px var(--gold); }
+
+/* ── DOWNLOAD ── */
+.docSection {
+  padding: 60px 20px;
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.downloadCard {
+  max-width: 900px; margin: 0 auto;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 40px;
+  display: flex; justify-content: space-between; align-items: center; gap: 30px;
+  backdrop-filter: blur(10px);
+}
+.downloadInfo { display: flex; align-items: center; gap: 25px; }
+.iconBox { background: var(--navy); padding: 20px; border-radius: 15px; color: var(--cyan); }
+.dlTitle { font-family: 'Chakra Petch', sans-serif; font-size: 1.5rem; color: var(--white); margin-bottom: 8px; }
+.dlDesc { color: var(--muted); font-size: 0.95rem; max-width: 450px; }
+.btnDownload {
+  display: flex; align-items: center; gap: 12px;
+  background: linear-gradient(135deg, #1a6bff 0%, #00cfff 100%);
+  color: #fff; padding: 15px 30px; border-radius: 12px;
+  text-decoration: none; font-weight: 600; white-space: nowrap;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(26, 107, 255, 0.2);
+}
+.btnDownload:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(26, 107, 255, 0.4); }
+
+/* ── FRAMEWORK ── */
+.fwSection { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6rem 2rem; }
+.fwInner { max-width: 1100px; margin: 0 auto; }
+.fwCenter { text-align: center; }
+.fwSubtitle { text-align: center; color: var(--muted); max-width: 560px; margin: 0 auto 4rem; line-height: 1.7; }
+.fwGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.fwCard {
+  background: var(--deep);
+  border: 1px solid var(--border);
+  border-radius: 10px; padding: 2.2rem 1.8rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.fwCard::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+  opacity: 0; transition: opacity 0.3s;
+}
+.fwCard:nth-child(1)::before, .fwCard:nth-child(4)::before { background: var(--blue); }
+.fwCard:nth-child(2)::before, .fwCard:nth-child(5)::before { background: var(--cyan); }
+.fwCard:nth-child(3)::before, .fwCard:nth-child(6)::before { background: var(--gold); }
+.fwCard:hover { border-color: rgba(0, 207, 255, 0.2); transform: translateY(-3px); }
+.fwCard:hover::before { opacity: 1; }
+.fwNum { font-family: 'Chakra Petch', sans-serif; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.15em; margin-bottom: 1.2rem; }
+.fwIcon { font-size: 2rem; margin-bottom: 1rem; }
+.fwCardTitle { font-family: 'Chakra Petch', sans-serif; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+.fwCardDesc { color: var(--muted); font-size: 0.9rem; line-height: 1.75; }
+
+/* ── IMPACT LEVELS ── */
+.impactSection { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+.impactCenter { text-align: center; }
+.impactTitle { font-family: 'Chakra Petch', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: 0.03em; margin-bottom: 4rem; }
+.impactGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+.impactCard { border-radius: 10px; padding: 2.5rem 2rem; text-align: center; border: 1px solid; transition: transform 0.3s; }
+.impactCard:hover { transform: translateY(-4px); }
+.impactLow { background: rgba(0, 232, 160, 0.05); border-color: rgba(0, 232, 160, 0.2); }
+.impactMid { background: rgba(245, 197, 24, 0.05); border-color: rgba(245, 197, 24, 0.2); }
+.impactHigh { background: rgba(255, 80, 80, 0.05); border-color: rgba(255, 80, 80, 0.2); }
+.impactLabel { font-family: 'Chakra Petch', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1rem; }
+.impactLabelLow { color: var(--green); }
+.impactLabelMid { color: var(--gold); }
+.impactLabelHigh { color: #ff6060; }
+.impactLevelTitle { font-family: 'Chakra Petch', sans-serif; font-size: 1.6rem; font-weight: 700; margin-bottom: 1.2rem; }
+.impactDesc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.5rem; }
+.impactReq { font-size: 0.82rem; color: var(--text); line-height: 1.6; text-align: left; }
+.impactReq li { margin-bottom: 0.4rem; padding-left: 0.5rem; }
+
+/* ── PROCESS ── */
+.processSection { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 6rem 2rem; }
+.processInner { max-width: 1100px; margin: 0 auto; }
+.processCenter { text-align: center; }
+.steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.5rem; position: relative; }
+.stepsLine {
+  position: absolute; top: 32px; left: 8%; right: 8%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyan), var(--blue), var(--gold), transparent);
+  opacity: 0.25;
+}
+.step { text-align: center; position: relative; }
+.stepNum {
+  width: 64px; height: 64px; border-radius: 50%;
+  border: 1px solid rgba(0, 207, 255, 0.35);
+  display: grid; place-items: center; margin: 0 auto 1.5rem;
+  font-family: 'Chakra Petch', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--cyan);
+  background: var(--navy); position: relative; z-index: 1;
+  transition: border-color 0.3s;
+}
+.step:hover .stepNum { border-color: var(--cyan); box-shadow: 0 0 20px rgba(0, 207, 255, 0.25); }
+.stepTitle { font-family: 'Chakra Petch', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 0.6rem; }
+.stepDesc { color: var(--muted); font-size: 0.85rem; line-height: 1.65; }
+
+/* ── FORMS ── */
+.formsSection { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+.formsCenter { text-align: center; }
+.formsTitle { font-family: 'Chakra Petch', sans-serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: 0.03em; margin-bottom: 4rem; }
+.formsGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.formCard {
+  background: var(--deep); border: 1px solid var(--border);
+  border-radius: 10px; padding: 2.5rem 2.2rem;
+  transition: border-color 0.3s;
+}
+.formCard:hover { border-color: rgba(0, 207, 255, 0.25); }
+.formCardHeader { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.formBadge {
+  width: 44px; height: 44px; border-radius: 8px;
+  display: grid; place-items: center;
+  font-family: 'Chakra Petch', sans-serif; font-size: 0.75rem; font-weight: 700;
+  flex-shrink: 0;
+}
+.badgeC1 { background: rgba(26, 107, 255, 0.2); border: 1px solid rgba(26, 107, 255, 0.4); color: #7fb0ff; }
+.badgeC2 { background: rgba(245, 197, 24, 0.15); border: 1px solid rgba(245, 197, 24, 0.35); color: var(--gold); }
+.formCardName { font-family: 'Chakra Petch', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.04em; }
+.formCardDesc { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+.formItems { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.formItem { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.88rem; color: var(--text); }
+.formItem::before { content: '›'; color: var(--cyan); flex-shrink: 0; font-weight: 700; }
+
+/* ── CTA ── */
+.ctaSection { padding: 9rem 2rem; text-align: center; position: relative; overflow: hidden; }
+.ctaGlow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(26, 107, 255, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.ctaTitle { font-family: 'Chakra Petch', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; letter-spacing: 0.03em; line-height: 1.1; margin-bottom: 1.5rem; position: relative; }
+.ctaGradient { background: linear-gradient(135deg, var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.ctaDesc { color: var(--muted); max-width: 520px; margin: 0 auto 3rem; line-height: 1.75; font-size: 1.05rem; position: relative; }
+
+/* Styles moved to footer.module.css */
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .aboutGrid, .fwGrid, .formsGrid { grid-template-columns: 1fr; }
+  .impactGrid { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; }
+  .stepsLine { display: none; }
+  .shieldWrap { display: none; }
+}
+
+@media (max-width: 768px) {
+  .downloadCard { flex-direction: column; text-align: center; padding: 30px 20px; }
+  .downloadInfo { flex-direction: column; gap: 15px; }
+  .dlDesc { margin: 0 auto; }
+}

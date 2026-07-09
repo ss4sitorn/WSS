@@ -1,0 +1,694 @@
+/* Topbar styles moved to navbar.module.css */
+
+/* ── WRAP ── */
+.wrap { max-width: 860px; margin: 0 auto; padding: 6.5rem 1.5rem 4rem; }
+
+/* ── CARD ── */
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ── HEADER ROW ── */
+.row {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  align-items: center; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.leftRow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pill {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  background: rgba(0, 0, 0, 0.18);
+  font-family: 'Chakra Petch', sans-serif;
+  letter-spacing: 0.05em;
+}
+.pillActive {
+  border-color: rgba(0, 207, 255, 0.4);
+  color: var(--cyan);
+  background: rgba(0, 207, 255, 0.06);
+}
+
+/* ── PROGRESS ── */
+.progressbar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 10px;
+}
+.progressFill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  transition: width 0.4s ease;
+  border-radius: 999px;
+}
+
+/* ── QUESTION ── */
+.qtitle {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin: 1.5rem 0 1rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* ── CHOICES ── */
+.choices { display: grid; gap: 10px; margin-top: 4px; }
+.choice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.15);
+  transition: border-color 0.2s, background 0.2s;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.choice:hover { border-color: rgba(0, 207, 255, 0.4); background: rgba(0, 207, 255, 0.04); }
+.choiceSelected { border-color: rgba(0, 207, 255, 0.6); background: rgba(0, 207, 255, 0.07); }
+.radio { margin-top: 3px; accent-color: var(--cyan); flex-shrink: 0; }
+
+/* ── NAV BUTTONS ── */
+.navBtns {
+  display: flex; justify-content: space-between;
+  gap: 10px; margin-top: 1.5rem; align-items: center;
+}
+.navRight { display: flex; gap: 10px; }
+.btn {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+  min-width: 90px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.btn:hover { border-color: rgba(0, 207, 255, 0.4); }
+.btnPrimary {
+  background: linear-gradient(135deg, rgba(26, 107, 255, 0.4), rgba(0, 207, 255, 0.25));
+  border-color: rgba(0, 207, 255, 0.5);
+}
+.btnPrimary:hover { background: linear-gradient(135deg, rgba(26, 107, 255, 0.55), rgba(0, 207, 255, 0.38)); }
+.btnDanger {
+  background: rgba(255, 106, 106, 0.12);
+  border-color: rgba(255, 106, 106, 0.35);
+  color: #ff9090;
+}
+.btnDanger:hover { background: rgba(255, 106, 106, 0.2); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+.helper { color: var(--muted); font-size: 0.82rem; margin-top: 0.75rem; min-height: 1.2em; }
+.helperError { color: #ff9090; }
+.hidden { display: none !important; }
+
+/* ── RESULTS ── */
+.resultHeader { text-align: center; padding: 1rem 0 2rem; }
+.scoreRing {
+  width: 130px; height: 130px; border-radius: 50%;
+  border: 3px solid rgba(0, 207, 255, 0.25);
+  background: rgba(0, 207, 255, 0.05);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  margin: 1.5rem auto;
+  box-shadow: 0 0 40px rgba(0, 207, 255, 0.15);
+}
+.scoreNum { font-family: 'Chakra Petch', sans-serif; font-size: 2.8rem; font-weight: 700; line-height: 1; color: var(--cyan); }
+.scoreSub { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.2rem; }
+
+.levelBadge {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 0.85rem; color: var(--muted);
+  margin-top: 0.5rem;
+  background: rgba(0, 0, 0, 0.15);
+}
+.levelOk { border-color: rgba(106, 255, 156, 0.4); color: #6aff9c; }
+.levelWarn { border-color: rgba(255, 215, 106, 0.4); color: #ffd76a; }
+.levelBad { border-color: rgba(255, 106, 106, 0.4); color: #ff9090; }
+
+.resultSection { margin-top: 2rem; }
+.resultLabel { font-family: 'Chakra Petch', sans-serif; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+
+.recList { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.recItem {
+  display: flex; gap: 0.6rem; align-items: flex-start;
+  font-size: 0.92rem; line-height: 1.6; color: var(--text);
+}
+.recItem::before { content: '›'; color: var(--cyan); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+.table {
+  width: 100%; border-collapse: collapse;
+  margin-top: 0.5rem; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--border);
+}
+.table th, .table td {
+  padding: 10px 12px; border-bottom: 1px solid var(--border);
+  text-align: left; vertical-align: top; font-size: 0.85rem;
+}
+.table th { color: var(--muted); font-weight: 700; background: rgba(0, 0, 0, 0.15); font-family: 'Chakra Petch', sans-serif; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.table tr:last-child td { border-bottom: none; }
+.scoreCell { font-family: 'Chakra Petch', sans-serif; font-weight: 700; }
+.scoreCellHi { color: #6aff9c; }
+.scoreCellMid { color: #ffd76a; }
+.scoreCellLo { color: #ff9090; }
+.noteOk { color: #6aff9c; font-size: 0.82rem; }
+.noteMid { color: #ffd76a; font-size: 0.82rem; }
+.noteBad { color: #ff9090; font-size: 0.82rem; }
+
+.resultFooter { margin-top: 1.5rem; color: var(--muted); font-size: 0.8rem; text-align: center; }
+.resultActions { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+.resultBtnBack { padding: 0.65rem 1.4rem; font-size: 0.9rem; }
+.resultBtnAgain { padding: 0.65rem 1.4rem; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .wrap {
+    padding: 5.5rem 1rem 3rem;
+  }
+  .card {
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+  .qtitle {
+    font-size: 1rem;
+    margin: 1.25rem 0 0.85rem;
+  }
+  .choice {
+    padding: 12px;
+    font-size: 0.88rem;
+    border-radius: 10px;
+  }
+  .btn {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    min-width: 80px;
+  }
+  .scoreRing {
+    width: 110px;
+    height: 110px;
+  }
+  .scoreNum {
+    font-size: 2.4rem;
+  }
+  .table th, .table td {
+    padding: 8px 10px;
+    font-size: 0.8rem;
+  }
+  .table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+@media (max-width: 480px) {
+  .wrap {
+    padding: 5rem 0.75rem 2.5rem;
+  }
+  .card {
+    padding: 1.25rem 1rem;
+  }
+  .row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .leftRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: 100%;
+  }
+  .pill {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .navBtns {
+    flex-direction: column-reverse;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .navRight {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .navRight button {
+    width: 100%;
+  }
+  .btn {
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+/* ── SETUP STEP ── */
+.setupHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.setupTitle {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+.setupDesc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.setupTabs {
+  display: flex;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 4px;
+  margin-bottom: 2rem;
+}
+.setupTabBtn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  padding: 0.75rem 1rem;
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+.setupTabBtnActive {
+  background: linear-gradient(135deg, rgba(26, 107, 255, 0.2), rgba(0, 207, 255, 0.15));
+  color: var(--cyan);
+  border: 1px solid rgba(0, 207, 255, 0.25) !important;
+}
+
+.ciaGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.ciaCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: border-color 0.2s;
+}
+.ciaCard:hover {
+  border-color: rgba(0, 207, 255, 0.2);
+}
+.ciaCardTitle {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 0.25rem;
+}
+.ciaCardDesc {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.ciaRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+.ciaField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.ciaFieldLabel {
+  font-size: 0.82rem;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.ciaRadios {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.15);
+}
+.ciaRadioLabel {
+  flex: 1;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 8px 4px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-right: 1px solid var(--border);
+}
+.ciaRadioLabel:last-child {
+  border-right: none;
+}
+.ciaRadioLabel input {
+  display: none;
+}
+.ciaRadioLabel:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--white);
+}
+.ciaRadioChecked_low {
+  background: rgba(0, 232, 160, 0.15) !important;
+  color: var(--green) !important;
+}
+.ciaRadioChecked_medium {
+  background: rgba(245, 197, 24, 0.15) !important;
+  color: var(--gold) !important;
+}
+.ciaRadioChecked_high {
+  background: rgba(255, 106, 106, 0.15) !important;
+  color: #ff9090 !important;
+}
+
+.directSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.directBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text);
+  text-align: left;
+}
+.directBtn:hover {
+  border-color: rgba(0, 207, 255, 0.3);
+  background: rgba(0, 207, 255, 0.03);
+}
+.directBtnActive_low {
+  border-color: var(--green) !important;
+  background: rgba(0, 232, 160, 0.05) !important;
+  color: var(--green) !important;
+}
+.directBtnActive_medium {
+  border-color: var(--gold) !important;
+  background: rgba(245, 197, 24, 0.05) !important;
+  color: var(--gold) !important;
+}
+.directBtnActive_high {
+  border-color: #ff6060 !important;
+  background: rgba(255, 96, 96, 0.05) !important;
+  color: #ff9090 !important;
+}
+.directBtnName {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+.directBtnDesc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
+}
+
+.setupFooter {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.setupResultText {
+  font-size: 0.95rem;
+  color: var(--text);
+  font-weight: 500;
+}
+.setupResultLevel {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-left: 0.5rem;
+}
+.setupResultLevel_low { color: var(--green); }
+.setupResultLevel_medium { color: var(--gold); }
+.setupResultLevel_high { color: #ff6060; }
+
+@media (max-width: 768px) {
+  .ciaRow {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* ── SUB-QUESTIONS ── */
+.subQList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin: 1.5rem 0 2rem;
+  width: 100%;
+}
+.subQRow {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.subQText {
+  font-size: 0.95rem;
+  color: var(--white);
+  line-height: 1.6;
+}
+.subQChoices {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.15);
+  max-width: 100%;
+}
+.subQChoiceLabel {
+  flex: 1;
+  text-align: center;
+  font-size: 0.82rem;
+  padding: 10px 6px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-right: 1px solid var(--border);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.subQChoiceLabel:last-child {
+  border-right: none;
+}
+.subQChoiceLabel input {
+  display: none;
+}
+.subQChoiceLabel:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--white);
+}
+
+.subQChoiceChecked_0 {
+  background: rgba(0, 232, 160, 0.15) !important;
+  color: var(--green) !important;
+}
+.subQChoiceChecked_1 {
+  background: rgba(245, 197, 24, 0.15) !important;
+  color: var(--gold) !important;
+}
+.subQChoiceChecked_2 {
+  background: rgba(255, 106, 106, 0.15) !important;
+  color: #ff9090 !important;
+}
+.subQChoiceChecked_3 {
+  background: rgba(255, 106, 106, 0.15) !important;
+  color: #ff9090 !important;
+}
+
+@media (max-width: 768px) {
+  .subQChoices {
+    flex-direction: column;
+    border-radius: 8px;
+  }
+  .subQChoiceLabel {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 6px;
+  }
+  .subQChoiceLabel:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ── ORGANIZATION INFO FORM ── */
+.infoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.formLabel {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cyan);
+}
+.formHelper {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.textInput {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--white);
+  font-family: 'Sarabun', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+.textInput:focus {
+  border-color: var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 207, 255, 0.25);
+  background: rgba(0, 207, 255, 0.02);
+}
+
+.radioCardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.radioCard {
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  color: var(--text);
+}
+.radioCard input {
+  display: none;
+}
+.radioCard:hover {
+  border-color: rgba(0, 207, 255, 0.25);
+  background: rgba(0, 207, 255, 0.02);
+}
+.radioCardActive {
+  border-color: var(--cyan) !important;
+  background: rgba(0, 207, 255, 0.06) !important;
+  color: var(--cyan) !important;
+}
+.radioCardTitle {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.radioCardDesc {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+.checkboxCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+.checkboxCard input {
+  cursor: pointer;
+  accent-color: var(--cyan);
+}
+.checkboxCard:hover {
+  border-color: rgba(0, 207, 255, 0.2);
+  background: rgba(255, 255, 255, 0.02);
+}
+.checkboxCardActive {
+  border-color: var(--cyan) !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+}
+
+@media (max-width: 768px) {
+  .radioCardGrid {
+    grid-template-columns: 1fr;
+  }
+  .checkboxGrid {
+    grid-template-columns: 1fr;
+  }
+}

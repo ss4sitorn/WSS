@@ -1,0 +1,80 @@
+{
+  "id": "p8",
+  "title": "การป้องกันความเสี่ยงของเว็บไซต์",
+  "description": "Website Security Protection (6.2)",
+  "questions": [
+    {
+      "id": "p8q1",
+      "minImpact": "high",
+      "text": "8.1  หน่วยงานมีการกำหนดแนวทางในการพัฒนาโปรแกรมประยุกต์บนเว็บ (Web Application) อย่างมั่นคงปลอดภัย เช่น ใช้หลักการ DevSecOps และพิจารณาปัจจัยเสี่ยงจาก OWASP Top 10 (หัวข้อ 6.2.1 และ 6.2.2) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มี Secure SDLC และพิจารณา OWASP Top 10 ในกระบวนการพัฒนา", "points": 4 },
+        { "label": "ดำเนินการบางส่วน — มีบางส่วนแต่ยังไม่ครอบคลุม OWASP หรือ DevSecOps ทั้งหมด", "points": 2 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังนำ Secure SDLC มาใช้", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีกระบวนการ Secure Development", "points": 0 }
+      ]
+    },
+    {
+      "id": "p8q2",
+      "minImpact": "medium",
+      "text": "8.3  หน่วยงานมีการออกแบบสถาปัตยกรรมเว็บไซต์อย่างมั่นคงปลอดภัย เช่น Network Segmentation การวาง Web Server และ Database Server ร่วมกับอุปกรณ์รักษาความมั่นคงปลอดภัย (WAF ฯลฯ) (หัวข้อ 6.2.3) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มี Network Segmentation และ Security Devices ครบถ้วน", "points": 4 },
+        { "label": "ดำเนินการบางส่วน — มี Firewall แต่ขาด WAF หรือ Network Segmentation", "points": 2 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังปรับปรุงสถาปัตยกรรม", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีการออกแบบ Security Architecture อย่างเป็นทางการ", "points": 0 }
+      ]
+    },
+    {
+      "id": "p8q3",
+      "minImpact": "medium",
+      "text": "8.4  หน่วยงานมีการควบคุมการเข้าถึง (Access Control) การทำให้ระบบแข็งแกร่ง (System Hardening) การบริหารจัดการ Remote Connection สื่อเก็บข้อมูลแบบถอดได้ (Removable Storage) การแบ่งปันข้อมูล (Information Sharing) และการสร้างความตระหนักรู้ด้าน Website Security (หัวข้อ 6.2.4) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มีมาตรการครบถ้วนทั้ง Access Control, Hardening, Awareness ฯลฯ", "points": 4 },
+        { "label": "ดำเนินการบางส่วน — มี Access Control และ Hardening แต่ขาด Awareness หรืออื่น ๆ", "points": 2 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังดำเนินการในบางมาตรการ", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีมาตรการด้านนี้อย่างเป็นทางการ", "points": 0 }
+      ]
+    },
+    {
+      "id": "p8q4",
+      "minImpact": "low",
+      "text": "8.5  หน่วยงานมีการพิจารณาการพิสูจน์ตัวตนแบบหลายปัจจัย (Multi-Factor Authentication: MFA) หรือการพิสูจน์ตัวตนจากระบบ Digital ID สำหรับเว็บไซต์ (หัวข้อ 6.2.5) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มีการใช้ MFA หรือ Digital ID สำหรับระบบที่สำคัญ", "points": 3 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังนำ MFA มาใช้", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ยังใช้ Username/Password เพียงอย่างเดียว", "points": 0 }
+      ]
+    },
+    {
+      "id": "p8q5",
+      "minImpact": "low",
+      "text": "8.6  หน่วยงานมีการตั้งค่าความมั่นคงปลอดภัยพื้นฐาน (Baseline Security Configuration) สำหรับ Web Server Software, Web Application, CMS, Operating System และฐานข้อมูล (หัวข้อ 6.2.6) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มีการตั้งค่า Baseline Security ตามมาตรฐาน (เช่น CIS Benchmark)", "points": 3 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังดำเนินการตั้งค่า Baseline Security", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีการตั้งค่า Baseline Security อย่างเป็นทางการ", "points": 0 }
+      ]
+    },
+    {
+      "id": "p8q6",
+      "minImpact": "low",
+      "text": "8.7  หน่วยงานมีการกำหนดแนวทางและเลือกบริการที่เกี่ยวข้องกับเว็บไซต์ ได้แก่ Web Server, CMS, Domain Registrar และ TLS Certificate (Cipher Suite) อย่างเหมาะสมและมั่นคงปลอดภัย (หัวข้อ 6.2.7) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มีการเลือก TLS ที่ทันสมัย CMS ที่มั่นคงปลอดภัย และ Domain ที่น่าเชื่อถือ", "points": 3 },
+        { "label": "อยู่ในระหว่างดำเนินการ — กำลังปรับปรุงการเลือก Service/Certificate", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีแนวทางการเลือกบริการที่ชัดเจน", "points": 0 }
+      ]
+    },
+    {
+      "id": "p8q7",
+      "minImpact": "low",
+      "text": "8.8  หน่วยงานมีการตั้งค่าไฟร์วอลล์ (Firewall) เพื่อควบคุมและป้องกันการบุกรุกต่าง ๆ ที่เกิดขึ้นกับเว็บไซต์ (หัวข้อ 6.2.8) หรือไม่?",
+      "choices": [
+        { "label": "ดำเนินการแล้ว — มี Firewall พร้อม Filtering Rules, Geo-restriction และ Monitoring", "points": 3 },
+        { "label": "อยู่ในระหว่างดำเนินการ — มี Firewall แต่กฎการกรองยังไม่ครบถ้วน", "points": 1 },
+        { "label": "ยังไม่ได้ดำเนินการ — ไม่มีการตั้งค่า Firewall สำหรับเว็บไซต์", "points": 0 }
+      ]
+    }
+  ]
+}
