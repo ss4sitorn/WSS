@@ -15,7 +15,7 @@ const ASSESSMENT = {
   title: 'WSS Self-Assessment',
   description:
     'แบบประเมินตนเองตามมาตรฐานความมั่นคงปลอดภัยสำหรับเว็บไซต์ (Website Security Standard) — แบบฟอร์ม ค1',
-  requireAllAnswers: false,
+  requireAllAnswers: true,
   parts: [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11],
   recommendations,
 };

@@ -60,8 +60,10 @@ export default function Navbar({ isHome = true }) {
     <nav className={`${s.nav} ${scrolled ? s.scrolled : ''}`}>
       <div className={s.container}>
         <Link href="/" className={s.logo} onClick={closeMenu}>
+          <img src="/ncsa_logo.png" alt="NCSA" className={s.navLogoImg} />
+          <div className={s.logoDivider} />
           <div className={s.logoBadge}>WSS</div>
-          <span className={s.logoAccent}>มาตรฐานการรักษาความมั่นคงปลอดภัยสำหรับเว็บไซต์</span>
+          <span className={s.logoAccent}>Portal</span>
         </Link>
 
         {isHome ? (
@@ -71,7 +73,8 @@ export default function Navbar({ isHome = true }) {
               <a href="#about" className={s.navLink}>WSS คืออะไร</a>
               <a href="#framework" className={s.navLink}>กรอบมาตรฐาน</a>
               <a href="#impact" className={s.navLink}>ระดับผลกระทบ</a>
-              <a href="#process" className={s.navLink}>ขั้นตอน</a>
+              <a href="#forms" className={s.navLink}>แบบฟอร์ม</a>
+              <a href="#videos" className={s.navLink}>คลังความรู้</a>
               <Link href="/assessment" className={s.navCta}>
                 เริ่มประเมิน
               </Link>
@@ -101,8 +104,11 @@ export default function Navbar({ isHome = true }) {
               <a href="#impact" className={s.navLink} onClick={closeMenu}>
                 ระดับผลกระทบ
               </a>
-              <a href="#process" className={s.navLink} onClick={closeMenu}>
-                ขั้นตอน
+              <a href="#forms" className={s.navLink} onClick={closeMenu}>
+                แบบฟอร์ม
+              </a>
+              <a href="#videos" className={s.navLink} onClick={closeMenu}>
+                คลังความรู้
               </a>
               <div className={s.mobileMenuRow}>
                 <Link href="/assessment" className={s.navCta} onClick={closeMenu}>

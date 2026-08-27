@@ -39,16 +39,35 @@
   --nav-border: rgba(0, 0, 0, 0.08);
 }
 
-/* ── Reset ── */
+/* ── Reset & Global Typography ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
   background: var(--deep);
   color: var(--white);
-  font-family: 'Sarabun', ui-sans-serif, system-ui, sans-serif;
-  font-weight: 300;
+  font-family: 'Sarabun', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  line-height: 1.75;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Chakra Petch', 'Sarabun', sans-serif;
+  line-height: 1.4;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+p {
+  line-height: 1.8;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 /* ── Scrollbar ── */

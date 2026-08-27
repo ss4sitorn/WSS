@@ -8,6 +8,7 @@ export default function QuizCard({
   answers,
   totalQuestions,
   answeredCount,
+  impactLevel = 'low',
   requireAllAnswers,
   helperText,
   helperIsError,
@@ -22,28 +23,35 @@ export default function QuizCard({
   const isLastQ = qIdx === part.questions.length - 1;
   const isLastPart = partIdx === parts.length - 1;
 
+  const pct = totalQuestions ? Math.round((answeredCount / totalQuestions) * 100) : 0;
+  const activeLevel = impactLevel ? impactLevel.toLowerCase() : 'low';
+
   return (
     <section className={s.card}>
-      {/* Header pills */}
-      <div className={s.row}>
-        <div className={s.leftRow}>
-          <div className={`${s.pill} ${s.pillActive}`}>
-            Part {partIdx + 1} / {parts.length}
+      {/* Tracking Progress Header */}
+      <div className={s.trackingContainer}>
+        <div className={s.trackingHeaderRow}>
+          <div className={`${s.levelBadgePill} ${s[`levelBadge_${activeLevel}`]}`}>
+            <span className={s.levelDot} />
+            ระดับ {activeLevel.toUpperCase()} · {totalQuestions} ข้อกำหนด ({parts.length} หมวดหมู่)
           </div>
-          <div className={s.pill}>
-            {part.title}{part.description ? ` · ${part.description}` : ''}
-          </div>
-          <div className={s.pill}>
-            ข้อ {qIdx + 1} / {part.questions.length}
+          <div className={s.trackingStatusText}>
+            ประเมินแล้ว <strong>{answeredCount}</strong> / {totalQuestions} ข้อกำหนด ({pct}%)
           </div>
         </div>
-        <div className={s.pill}>
-          {requireAllAnswers ? 'ตอบทุกข้อ' : 'ตอบได้ตามต้องการ'}
+
+        <ProgressBar current={answeredCount} total={totalQuestions} />
+
+        <div className={s.partTrackerRow}>
+          <div className={s.partTrackerTitle}>
+            <span className={s.partNumberPill}>หมวด {partIdx + 1}/{parts.length}</span>
+            <span className={s.partNameText}>{part.title}</span>
+          </div>
+          <div className={s.questionNumberPill}>
+            ข้อที่ {qIdx + 1} จาก {part.questions.length} ในหมวดนี้
+          </div>
         </div>
       </div>
-
-      {/* Progress */}
-      <ProgressBar current={answeredCount} total={totalQuestions} />
 
       {/* Question */}
       <h2 className={s.qtitle}>{question.text}</h2>
@@ -121,7 +129,11 @@ export default function QuizCard({
           <button className={`${s.btn} ${s.btnDanger}`} onClick={onReset}>
             รีเซ็ต
           </button>
-          <button className={`${s.btn} ${s.btnPrimary}`} onClick={onNext}>
+          <button
+            className={`${s.btn} ${s.btnPrimary}`}
+            onClick={onNext}
+            disabled={!Number.isInteger(answers[question.id])}
+          >
             {isLastQ && isLastPart ? 'ส่งผลการประเมิน ✓' : 'ถัดไป →'}
           </button>
         </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import ASSESSMENT from '@/data';
 import QuizCard from '@/components/assessment/QuizCard';
 import ResultCard from '@/components/assessment/ResultCard';
@@ -92,8 +92,17 @@ export default function AssessmentPage() {
   const [helperIsError, setHelperIsError] = useState(false);
 
   // Load state on mount (client-side only)
-  useState(() => {
+  useEffect(() => {
     if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const levelParam = urlParams.get('level');
+      if (levelParam && ['low', 'medium', 'high'].includes(levelParam)) {
+        setImpactLevel(levelParam);
+        setDirectLevel(levelParam);
+        setSetupTab('direct');
+        setStep('quiz');
+      }
+
       const restoredSetup = loadSetupState();
       if (restoredSetup) {
         setStep('quiz');
@@ -109,12 +118,14 @@ export default function AssessmentPage() {
         setWebPurposeOther(restoredSetup.webPurposeOther || '');
         setWebDeploy(restoredSetup.webDeploy || 'onprem');
         setWebDeployOther(restoredSetup.webDeployOther || '');
-        setImpactLevel(restoredSetup.impactLevel || 'low');
+        if (!levelParam) {
+          setImpactLevel(restoredSetup.impactLevel || 'low');
+        }
         setCiaAnswers(restoredSetup.ciaAnswers || {});
       }
       setAnswers(loadAnswers());
     }
-  });
+  }, []);
 
   // CII status calculation based on Form ค1 inputs
   const isCii = useMemo(() => {
@@ -402,6 +413,13 @@ export default function AssessmentPage() {
   }).filter(Boolean).join(', ');
 
   const totalScore = useMemo(() => calcScore(flatQuestions), [calcScore, flatQuestions]);
+
+  const band = useMemo(() => {
+    const pct = totalScore.pct;
+    if (pct >= 80) return { badgeClass: 'ok', label: 'ระดับสอดคล้องสูง (Pass)' };
+    if (pct >= 50) return { badgeClass: 'warn', label: 'ระดับปานกลาง (Warning)' };
+    return { badgeClass: 'bad', label: 'ต้องปรับปรุง (Needs Improvement)' };
+  }, [totalScore.pct]);
 
   const breakdownText = `${orgName ? `${orgName} (${displayOrgType || 'ไม่ระบุประเภท'}) · ` : ''}คะแนนรวม ${totalScore.earned} / ${totalScore.maxPoints} คะแนน  ·  ระดับผลกระทบ: ${impactLevel.toUpperCase()}  ·  ประเมิน ณ ${new Date().toLocaleString('th-TH')}`;
 
@@ -781,6 +799,7 @@ export default function AssessmentPage() {
             answers={answers}
             totalQuestions={flatQuestions.length}
             answeredCount={answeredCount}
+            impactLevel={impactLevel}
             requireAllAnswers={requireAllAnswers}
             helperText={helperText}
             helperIsError={helperIsError}
@@ -794,6 +813,7 @@ export default function AssessmentPage() {
             totalScore={totalScore}
             band={band}
             parts={parts}
+            answers={answers}
             calcScore={calcScore}
             breakdown={breakdownText}
             onAgain={handleAgain}

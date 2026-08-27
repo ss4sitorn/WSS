@@ -23,13 +23,26 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-family: 'Chakra Petch', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--white);
-  letter-spacing: 0.1em;
+  gap: 0.6rem;
+  text-decoration: none;
   cursor: pointer;
+}
+
+.navLogoImg {
+  height: 36px;
+  width: auto;
+  background: #ffffff;
+  padding: 3px 6px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: block;
+}
+
+.logoDivider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 0.1rem;
 }
 
 .logoBadge {
@@ -39,6 +52,7 @@
   border-radius: 8px;
   display: grid;
   place-items: center;
+  font-family: 'Chakra Petch', sans-serif;
   font-size: 0.85rem;
   font-weight: 700;
   color: #fff;
@@ -46,12 +60,17 @@
 }
 
 .logoAccent {
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
   color: var(--cyan);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .navLinks {
   display: flex;
-  gap: 2rem;
+  gap: 1.25rem;
   align-items: center;
 }
 
@@ -175,13 +194,22 @@
   .container {
     padding: 1rem 1.25rem;
   }
-  .logo {
-    font-size: 1.3rem;
+  .navLogoImg {
+    height: 28px;
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+  .logoDivider {
+    height: 16px;
   }
   .logoBadge {
-    width: 32px;
-    height: 32px;
-    font-size: 0.75rem;
+    width: 30px;
+    height: 30px;
+    font-size: 0.72rem;
+    border-radius: 6px;
+  }
+  .logoAccent {
+    font-size: 0.9rem;
   }
 }
 
