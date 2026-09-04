@@ -1,0 +1,18 @@
+services:
+  wss-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wss-app
+    restart: unless-stopped
+    ports:
+      - "3000:8080"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    tmpfs:
+      - /tmp
+      - /tmp/nginx
+      - /var/cache/nginx
+      - /var/run
